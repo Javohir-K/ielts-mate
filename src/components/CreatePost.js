@@ -40,6 +40,7 @@ function CreatePost() {
   const [level, setLevel] = useState("");
   const [redirect, setRedirect] = useState(false);
 
+  
   function createNewPost(e) {
     e.preventDefault();
     if (title === "" || description === "" || level === "" || content === "") {

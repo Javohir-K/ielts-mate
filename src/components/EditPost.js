@@ -52,6 +52,23 @@ function EditPost() {
       });
   }, []);
 
+  function deleteDoc(e) {
+    e.preventDefault();
+    db.collection("topics").doc(id).delete();
+    setRedirect(true);
+  }
+
+  function popup() {
+    var x = document.getElementById("popupDel");
+    if (x.classList.contains("popup")) {
+      x.classList.remove("popup");
+      x.classList.add("dn");
+    } else {
+      x.classList.add("popup");
+      x.classList.remove("dn");
+    }
+  }
+
   function updatePost(e) {
     e.preventDefault();
     if (title === "" || description === "" || level === "" || content === "") {
@@ -67,7 +84,7 @@ function EditPost() {
     }
   }
 
-  console.log(title);
+  // console.log(title);
 
   if (redirect) {
     return <Navigate to={"/admin"} />;
@@ -118,6 +135,36 @@ function EditPost() {
           Update Post
         </button>
       </form>
+      <button
+        className="red-bg"
+        style={{
+          marginTop: "1rem",
+          padding: "0.5rem",
+          border: "none",
+          borderRadius: ".5rem",
+          fontSize: "1rem",
+          fontWeight: "bold",
+        }}
+        onClick={popup}
+      >
+        Delete
+      </button>
+      <div className="dn" id="popupDel">
+        <div className="popup-container">
+          <div className="bg-dark">
+            <h2>Do you want to delete this post?</h2>
+            <p style={{ color: "yellow" }}>
+              Warning: This post will be deleted permanently!
+            </p>
+            <div>
+              <button className="accent-btn" onClick={deleteDoc}>Yes, delete it!</button>
+              <button className="cancel-btn" onClick={popup}>
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

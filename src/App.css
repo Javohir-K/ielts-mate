@@ -523,8 +523,18 @@
   .footer-wrapper * {
     font-size: 0.8rem !important;
   }
-  .post-page-main-content img{
+  .post-page-main-content img {
     width: 100% !important;
     height: auto !important;
+  }
+  .ap-nav-inner {
+    /* flex-direction: column; */
+    gap: 1rem;
+  }
+  .ap-nav-inner > h3 {
+    display: none;
+  }
+  .ap-nav-inner a span {
+    display: none;
   }
 }

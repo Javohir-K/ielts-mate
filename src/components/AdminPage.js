@@ -3,23 +3,18 @@ import { useStateValue } from "../AdminContext";
 import { auth, db } from "../firebase";
 import { Link, Navigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faMagnifyingGlass,
+  faPen,
+  faPlus,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 import Loading from "./Loading";
-
-function popup() {
-  var x = document.getElementById("popupDel");
-  if (x.classList.contains("popup")) {
-    x.classList.remove("popup");
-    x.classList.add("dn");
-  } else {
-    x.classList.add("popup");
-    x.classList.remove("dn");
-  }
-}
 
 function AdminPage() {
   const [{ user }, dispatch] = useStateValue();
   const [posts, setPosts] = useState([]);
+  const [searchField, setSearchField] = useState("");
 
   useEffect(() => {
     db.collection("topics")
@@ -46,9 +41,12 @@ function AdminPage() {
     });
   }, []);
 
-  function deleteDoc(docs) {
-    db.collection("topics").doc(docs.id).delete();
-    popup();
+  const filteredPosts = posts.filter((post) => {
+    return post.data.title.toLowerCase().includes(searchField.toLowerCase());
+  });
+
+  function searchList() {
+    return <SearchList filteredPosts={filteredPosts} />;
   }
 
   if (!user) {
@@ -64,10 +62,28 @@ function AdminPage() {
       <div className="ap-nav container">
         <div className="ap-nav-inner bg-dark2">
           <h3>All posts</h3>
+          <div className="search bg-dark2" style={{ border: "1px solid #333" }}>
+            <div className="search-wrapper">
+              <form action="">
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  onChange={(e) => setSearchField(e.target.value)}
+                  className="light-color"
+                  placeholder="Search post"
+                />
+                <FontAwesomeIcon
+                  icon={faMagnifyingGlass}
+                  size="1x"
+                  color="gray"
+                />
+              </form>
+            </div>
+          </div>
           <Link to={"/create-post"} className="accent-bg">
-            {" "}
             <FontAwesomeIcon icon={faPlus} />
-            {"Create new post"}
+            <span>Create new post</span>
           </Link>
         </div>
       </div>
@@ -75,22 +91,24 @@ function AdminPage() {
       {posts.length === 0 ? (
         <Loading />
       ) : (
-        <div className="ap-post-list bg-dark2">
-          {posts.map((post, index) => (
-            <AdminPostCard
-              _id={post.id}
-              index={index++}
-              title={post.data.title}
-              delFunc={() => deleteDoc(post)}
-            />
-          ))}
-        </div>
+        <div className="ap-post-list bg-dark2">{searchList()}</div>
       )}
     </div>
   );
 }
+function SearchList({ filteredPosts }) {
+  const posts = filteredPosts.map((post, index) => (
+    <AdminPostCard
+      _id={post.id}
+      index={index++}
+      title={post.data.title}
+      level={post.data.level}
+    />
+  ));
+  return posts;
+}
 
-const AdminPostCard = ({ _id, title, index, delFunc }) => {
+const AdminPostCard = ({ _id, title, index, level }) => {
   return (
     <div className="ap-card">
       <div className="ap-card-info">
@@ -99,35 +117,11 @@ const AdminPostCard = ({ _id, title, index, delFunc }) => {
         <h4>{title}</h4>
       </div>
       <div className="ap-card-actions">
+        <p className="accent-color">#{level}</p>
         <Link to={`/edit-post/${_id}`}>
           <FontAwesomeIcon icon={faPen} />
           <p>Edit</p>
         </Link>
-        <div onClick={popup}>
-          <div className="delBtn">
-            <FontAwesomeIcon icon={faTrash} />
-            <p>Delete</p>
-          </div>
-        </div>
-      </div>
-      <div className="dn" id="popupDel">
-        <div className="popup-container">
-          <div className="bg-dark">
-            <h2>Do you want to delete this post?</h2>
-            <p style={{ color: "yellow" }}>
-              You are deleting post [#{_id}] <br />
-              Warning: This post will be deleted permanently!
-            </p>
-            <div>
-              <button className="accent-btn" onClick={delFunc}>
-                Yes, delete it!
-              </button>
-              <button className="cancel-btn" onClick={popup}>
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );
