@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import CategoryChanger from "./CategoryChanger";
 import { db } from "../firebase";
 import { Link } from "react-router-dom";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SearchList from "./SearchList";
 import Loading from "./Loading";
-import PostCard from "./PostCard";
 import Footer from "./Footer";
 
 function HomePage() {
@@ -78,7 +76,6 @@ function HomePage() {
         <Loading />
       ) : (
         <div className="homepage-wrapper container">
-          {/* <CategoryChanger /> */}
           <div className="category-changer">
             <p>Select your level:</p>
             <div className="category-list-wrapper">
@@ -152,7 +149,7 @@ function HomePage() {
           </div>
           <div className="posts">
             {filteredPosts.length === 0
-              ? "There are no posts for this level now!"
+              ? "There are no posts for this level or title now!"
               : searchList()}
           </div>
         </div>
