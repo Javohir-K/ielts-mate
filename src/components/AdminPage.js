@@ -26,7 +26,6 @@ function AdminPage() {
       });
 
     auth.onAuthStateChanged((authUser) => {
-      // console.log("user is", authUser);
       if (authUser) {
         dispatch({
           type: "SET_USER",

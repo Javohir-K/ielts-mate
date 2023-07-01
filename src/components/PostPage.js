@@ -4,6 +4,7 @@ import { db } from "../firebase";
 import Loading from "./Loading";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import Page404 from "./Page404";
 
 function PostPage() {
   const [postInfo, setPostInfo] = useState(null);
@@ -18,9 +19,11 @@ function PostPage() {
       });
   }, []);
 
-  //   console.log(postInfo);
+  // console.log(postInfo);
 
-  if (!postInfo) {
+  if (postInfo === undefined) {
+    return <Page404 />;
+  } else if (!postInfo) {
     return <Loading />;
   }
 
