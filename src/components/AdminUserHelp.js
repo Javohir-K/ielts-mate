@@ -39,37 +39,40 @@ function AdminUserHelp() {
       <div className="au-wrapper">
         <h2 className="accent-color">Notifications</h2>
         <div className="au-notifications">
-          {userComments.map((item, index) => (
-            <div className="au-card bg-dark2">
-              <div>
-                <h4 className={!item.data.new ? "" : "accent-color"}>
-                  {index + 1}. {item.data.owner} {!item.data.new ? "" : "[New]"}
-                </h4>
-                <div>
-                  <p>{item.data.timestamp}</p>
-                  {!item.data.new ? (
-                    ""
-                  ) : (
-                    <button
-                      onClick={() => readHelp(item)}
-                      style={{
-                        background: "transparent",
-                        border: "2px  solid var(--accent)",
-                        borderRadius: ".3rem",
-                        outline: "none",
-                      }}
-                    >
-                      <FontAwesomeIcon
-                        icon={faCheck}
-                        className="accent-color"
-                      />
-                    </button>
-                  )}
+          {userComments.length === 0
+            ? "Notifications is empty"
+            : userComments.map((item, index) => (
+                <div className="au-card bg-dark2">
+                  <div>
+                    <h4 className={!item.data.new ? "" : "accent-color"}>
+                      {index + 1}. {item.data.owner}{" "}
+                      {!item.data.new ? "" : "[New]"}
+                    </h4>
+                    <div>
+                      <p>{item.data.timestamp}</p>
+                      {!item.data.new ? (
+                        ""
+                      ) : (
+                        <button
+                          onClick={() => readHelp(item)}
+                          style={{
+                            background: "transparent",
+                            border: "2px  solid var(--accent)",
+                            borderRadius: ".3rem",
+                            outline: "none",
+                          }}
+                        >
+                          <FontAwesomeIcon
+                            icon={faCheck}
+                            className="accent-color"
+                          />
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                  <p>{item.data.comment}</p>
                 </div>
-              </div>
-              <p>{item.data.comment}</p>
-            </div>
-          ))}
+              ))}
         </div>
         <div>
           {clr.length !== 0 ? (
