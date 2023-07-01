@@ -38,8 +38,8 @@ function Help() {
           <p>Developer: Javohir Komiljonov</p>
         </div>
         <h2 className="accent-color">
-          Write your email and problem you are facing in our website. We will
-          help you as soon as possible
+          Write your email and the problems you are facing in our website. We will
+          help you as soon as possible!
         </h2>
         <div className="add-comment">
           <h2>Add comment</h2>

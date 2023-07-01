@@ -100,10 +100,16 @@ function AdminPage() {
               <Link to={"/admin/user-help"}>
                 <FontAwesomeIcon
                   icon={faBell}
-                  color="white"
+                  color={userComments.length !== 0 ? "yellow" : "white"}
                   className={userComments.length === 0 ? "" : "ringIcon"}
                 />
-                <p style={{ color: "white" }}>{userComments.length}</p>
+                <p
+                  style={{
+                    color: userComments.length !== 0 ? "yellow" : "white",
+                  }}
+                >
+                  {userComments.length}
+                </p>
               </Link>
             </button>
             <Link to={"/create-post"} className="accent-bg">
