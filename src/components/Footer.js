@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Footer() {
   return (
@@ -9,7 +10,7 @@ function Footer() {
           <span className="n2">//mate.</span>
           <h3>#2023</h3>
         </div>
-        <p>Developer: Javohir Komiljonov</p>
+        <Link to={"/help"} style={{textDecoration:"underline"}} >Need Help?</Link>
       </div>
     </div>
   );

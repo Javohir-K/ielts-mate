@@ -17,9 +17,11 @@ function PostPage() {
       .then((res) => {
         setPostInfo(res.data());
       });
+    
   }, []);
 
   // console.log(postInfo);
+  
 
   if (postInfo === undefined) {
     return <Page404 />;

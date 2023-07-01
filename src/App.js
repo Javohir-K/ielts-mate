@@ -11,13 +11,14 @@ import Page404 from "./components/Page404";
 import { useEffect } from "react";
 import { auth } from "./firebase";
 import Scroll from "./components/Scroll";
+import Help from "./components/Help";
+import AdminUserHelp from "./components/AdminUserHelp";
 
 function App() {
   const [{ user }, dispatch] = useStateValue();
 
   useEffect(() => {
     auth.onAuthStateChanged((authUser) => {
-      // console.log("user is", authUser);
       if (authUser) {
         dispatch({
           type: "SET_USER",
@@ -44,6 +45,11 @@ function App() {
           element={!user ? <Page404 /> : <EditPost />}
           path="/edit-post/:id"
         />
+        <Route
+          element={!user ? <Page404 /> : <AdminUserHelp />}
+          path="/admin/user-help"
+        />
+        <Route element={<Help />} path="/help" />
         <Route element={<Login />} path="/login" />
         <Route element={<HomePage />} path="/" />
         <Route element={<PostPage />} path="/topic/:id" />

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useStateValue } from "../AdminContext";
 import { auth, db } from "../firebase";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faBell,
   faMagnifyingGlass,
   faPen,
   faPlus,
-  faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import Loading from "./Loading";
 
@@ -15,12 +15,21 @@ function AdminPage() {
   const [{ user }, dispatch] = useStateValue();
   const [posts, setPosts] = useState([]);
   const [searchField, setSearchField] = useState("");
+  const [userComments, setUserComments] = useState([]);
+  const [noti, setNoti] = useState([]);
 
   useEffect(() => {
     db.collection("topics")
       .orderBy("title", "asc")
       .onSnapshot((snapshot) => {
         setPosts(
+          snapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
+        );
+      });
+    db.collection("help")
+      .where("new", "==", true)
+      .onSnapshot((snapshot) => {
+        setUserComments(
           snapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
         );
       });
@@ -80,10 +89,28 @@ function AdminPage() {
               </form>
             </div>
           </div>
-          <Link to={"/create-post"} className="accent-bg">
-            <FontAwesomeIcon icon={faPlus} />
-            <span>Create new post</span>
-          </Link>
+          <div className="ap-nav-right">
+            <button
+              style={{
+                background: "transparent",
+                border: "none",
+                outline: "none",
+              }}
+            >
+              <Link to={"/admin/user-help"}>
+                <FontAwesomeIcon
+                  icon={faBell}
+                  color="white"
+                  className={userComments.length === 0 ? "" : "ringIcon"}
+                />
+                <p style={{ color: "white" }}>{userComments.length}</p>
+              </Link>
+            </button>
+            <Link to={"/create-post"} className="accent-bg">
+              <FontAwesomeIcon icon={faPlus} />
+              <span>Create new post</span>
+            </Link>
+          </div>
         </div>
       </div>
 
