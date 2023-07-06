@@ -13,6 +13,7 @@ import { auth } from "./firebase";
 import Scroll from "./components/Scroll";
 import Help from "./components/Help";
 import AdminUserHelp from "./components/AdminUserHelp";
+import ScrollToTop from "./components/ScrollTop";
 
 function App() {
   const [{ user }, dispatch] = useStateValue();
@@ -35,6 +36,7 @@ function App() {
 
   return (
     <div className="App">
+      <ScrollToTop/>
       <Routes>
         <Route element={<AdminPage />} path="/admin" />
         <Route

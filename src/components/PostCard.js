@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function PostCard({ _id, title, description, level }) {
+function PostCard({ _id, title, description, level}) {
+
+ 
   return (
     <div className="post-card bg-dark2">
       <div className="post-card-cover">

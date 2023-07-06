@@ -663,7 +663,9 @@
     max-width: 100%;
     /* max-height: max-content; */
   }
+
   .cover h1 {
+    width: 100px;
     font-size: 1.2rem;
   }
   .post-card-content h2 {

@@ -51,6 +51,7 @@ function CreatePost() {
         description: description,
         content: content,
         level: level,
+        timestamp: new Date().toLocaleString()
       });
       setRedirect(true);
     }
