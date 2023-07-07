@@ -70,13 +70,6 @@ function Login() {
             Login
           </button>
         </form>
-        {/* <p className="login_terms">
-          By signing in you agree to our app's Conditions of use. Please see our
-          Privacy Notice, our cookies Notice and our Interest-Based Ads Notice.
-        </p>
-        <button onClick={register} className="login_registerButton">
-          Create your Account
-        </button> */}
       </div>
     </div>
   );
