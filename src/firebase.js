@@ -1,7 +1,7 @@
 import firebase from "firebase";
 
 const firebaseConfig = {
-  // firebase config data here. I have deleted it for security purposes
+  // firebase config data here. I have deleted mine for security purposes
 };
 const app = firebase.initializeApp(firebaseConfig);
 const db = app.firestore();
